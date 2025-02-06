@@ -17,7 +17,7 @@ export const useHttpClient = () => {
     activeHttpRequests.current.push(httpAbortCtrll);
 
     try {
-      fetch(url, {
+      const response = await fetch(url, {
         method,
         body,
         headers,
@@ -26,15 +26,20 @@ export const useHttpClient = () => {
 
       const responseData = await response.json();
 
+      activeHttpRequests.current = activeHttpRequests.current.filter(reqCtrl => reqCtrl !== httpAbortCtrll)
+
       if (!response.ok) {
         throw new Error(responseData.message);
       }
 
+      setIsLoading(false);
       return responseData;
     } catch (err) {
       setError(err.message);
+      setIsLoading(false);
+      throw err;
     }
-    setIsLoading(false);
+   
   }, []);
 
   const clearError = () => {
@@ -43,7 +48,7 @@ export const useHttpClient = () => {
 
   useEffect(() => {
     return () => {
-        activeHttpRequests.current.forEach(abortCtrl.abort());
+        activeHttpRequests.current.forEach((abortCtrl) => abortCtrl.abort());
     }
   }, [])
 
