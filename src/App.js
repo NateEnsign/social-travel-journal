@@ -13,13 +13,13 @@ import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import Auth from "./user/pages/Auth";
 import { AuthContext } from "./shared/context/auth-context";
 
-const App = (uid) => {
+const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
 
-  const login = useCallback(() => {
+  const login = useCallback((uId) => {
     setIsLoggedIn(true);
-    setUserId(uid)
+    setUserId(uId)
   }, []);
 
   const logout = useCallback(() => {

@@ -45,7 +45,7 @@ const NewPlace = () => {
           title: formState.inputs.title.value,
           description: formState.inputs.description.value,
           address: formState.inputs.address.value,
-          creator: auth.userId,
+          creator: auth.userId
         }),
         {'Content-Type': 'application/json'}
       );
@@ -92,3 +92,10 @@ const NewPlace = () => {
 };
 
 export default NewPlace;
+
+
+
+
+
+
+
