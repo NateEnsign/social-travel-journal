@@ -80,11 +80,13 @@ const Auth = () => {
             password: formState.inputs.password.value,
           }),
           {
-            "CONTENT-TYPE": "application/json",
+            "Content-Type": "application/json",
           }
         );
         auth.login(responseData.user.id);
-      } catch (err) {}
+      } catch (err) {
+        console.log('Login error', err);
+      }
     } else {
       try {
         const formData = new FormData();
@@ -153,3 +155,10 @@ const Auth = () => {
 };
 
 export default Auth;
+
+
+
+
+
+
+
