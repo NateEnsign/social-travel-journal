@@ -19,12 +19,16 @@ const App = () => {
 
   const login = useCallback((uId, token) => {
     setToken(token);
-    setUserId(uId)
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({ userId: uId, token: token })
+    );
+    setUserId(uId);
   }, []);
 
   const logout = useCallback(() => {
     setToken(null);
-    setUserId(null)
+    setUserId(null);
   }, []);
 
   let routes;
@@ -66,7 +70,13 @@ const App = () => {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: !!token, token: token, userId: userId, login: login, logout: logout }}
+      value={{
+        isLoggedIn: !!token,
+        token: token,
+        userId: userId,
+        login: login,
+        logout: logout,
+      }}
     >
       <Router>
         <MainNavigation />
